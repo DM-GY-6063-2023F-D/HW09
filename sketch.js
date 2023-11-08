@@ -50,6 +50,7 @@ function draw() {
     // left and right eye points
     let leftEyePoints = [];
     let rightEyePoints = [];
+    let lipPoints = [];
 
     let annotations = predictions[pi].annotations;
     let annKeys = Object.keys(annotations);
@@ -60,6 +61,8 @@ function draw() {
         leftEyePoints = leftEyePoints.concat(annotations[k]);
       } else if (k.includes("rightEye")) {
         rightEyePoints = rightEyePoints.concat(annotations[k]);
+      } else if (k.includes("lips")) {
+        lipPoints = lipPoints.concat(annotations[k]);
       }
     }
 
@@ -118,5 +121,13 @@ function draw() {
       }
     }
     pop();
+
+    noStroke();
+    fill(128, 0, 190, 150);
+    beginShape();
+    for (let i = 0; i < lipPoints.length; i++) {
+      vertex(lipPoints[i][0], lipPoints[i][1]);
+    }
+    endShape();
   }
 }
